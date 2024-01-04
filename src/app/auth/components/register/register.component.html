@@ -6,20 +6,30 @@
         <p class="text-xs-center">
           <a routerLink="/login">Have an account?</a>
         </p>
-        BACKEND ERR0RS HERE
-        <form>
+        BACKEND ERRORS HERE
+        <form [formGroup]="form" (ngSubmit)="ngSubmit()">
           <fieldset class="form-group">
             <input
               type="text"
               class="form-control form-control-lg"
               placeholder="Username"
+              formControlName="username"
             />
           </fieldset>
           <fieldset class="form-group">
             <input
               type="password"
               class="form-control form-control-lg"
-              placeholder="Email"
+              placeholder="email"
+              formControlName="email"
+            />
+          </fieldset>
+          <fieldset class="form-group">
+            <input
+              type="password"
+              class="form-control form-control-lg"
+              placeholder="password"
+              formControlName="password"
             />
           </fieldset>
           <button type="submit" class="btn btn-lg btn-primary pull-xs-right">
