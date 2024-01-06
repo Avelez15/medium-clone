@@ -1,0 +1,3 @@
+interface Environment {
+  apiUrl: string
+}

@@ -4,9 +4,10 @@ import {Store} from '@ngrx/store'
 import {register} from '../../store/actions'
 import {registerRequestInterface} from '../../types/registerRequest.interface'
 import {RouterLink} from '@angular/router'
-import { selectIsSubmitting } from '../../store/reducers'
+import {selectIsSubmitting} from '../../store/reducers'
 import {AuthStateInterface} from '../../types/authState.interface'
 import {CommonModule} from '@angular/common'
+import {AuthService} from '../../services/auth.service'
 
 @Component({
   selector: 'mc-register',
@@ -24,7 +25,8 @@ export class registerComponent {
 
   constructor(
     private fb: FormBuilder,
-    private store: Store<{auth: AuthStateInterface}>
+    private store: Store<{auth: AuthStateInterface}>,
+    private authService: AuthService
   ) {}
 
   ngSubmit() {
@@ -33,5 +35,8 @@ export class registerComponent {
       user: this.form.getRawValue(),
     }
     this.store.dispatch(register({request}))
+    this.authService
+      .register(request)
+      .subscribe((res) => console.log('res', res))
   }
 }
