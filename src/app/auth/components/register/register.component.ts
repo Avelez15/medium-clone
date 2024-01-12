@@ -1,7 +1,7 @@
 import {Component} from '@angular/core'
 import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms'
 import {Store} from '@ngrx/store'
-import {register} from '../../store/actions'
+import {authActions} from '../../store/actions'
 import {registerRequestInterface} from '../../types/registerRequest.interface'
 import {RouterLink} from '@angular/router'
 import {selectIsSubmitting} from '../../store/reducers'
@@ -23,20 +23,13 @@ export class registerComponent {
   })
   isSubmitted$ = this.store.select(selectIsSubmitting)
 
-  constructor(
-    private fb: FormBuilder,
-    private store: Store<{auth: AuthStateInterface}>,
-    private authService: AuthService
-  ) {}
+  constructor(private fb: FormBuilder, private store: Store) {}
 
   ngSubmit() {
     console.log('form', this.form.getRawValue())
     const request: registerRequestInterface = {
       user: this.form.getRawValue(),
     }
-    this.store.dispatch(register({request}))
-    this.authService
-      .register(request)
-      .subscribe((res) => console.log('res', res))
+    this.store.dispatch(authActions.register({request}))
   }
 }
